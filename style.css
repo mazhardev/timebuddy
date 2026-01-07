@@ -1,323 +1,254 @@
 :root {
-    --bg-primary: #0f172a;
-    --accent-primary: #818cf8;
-    --accent-secondary: #c084fc;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --primary-blue: #2563eb;
+    --bg-main: #f8fafc;
+    --border-color: #e2e8f0;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --hour-bg: #ffffff;
+    --hour-weekend: #f1f5f9;
+    --hour-night: #edf2f7;
+    --highlight-blue: rgba(37, 99, 235, 0.1);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    min-height: 100vh;
+    background-color: #cbd5e1;
+    /* Darker background to make the container pop */
+    color: var(--text-main);
     display: flex;
     justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-    padding: 2rem;
+    padding-top: 40px;
 }
 
-.bg-gradient {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(129, 140, 248, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(192, 132, 252, 0.15) 0%, transparent 40%);
-    z-index: -1;
-    animation: pulse 10s infinite alternate;
+.app-container {
+    width: 95%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
-}
-
-.glass-container {
-    width: 100%;
-    max-width: 1100px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 30px;
-    padding: 3rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 0.8s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-header {
+/* Header */
+.main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4rem;
-    gap: 2rem;
-    flex-wrap: wrap;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    background: #fff;
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 1.25rem;
 }
 
-.logo h1 {
-    font-size: 1.75rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    background: linear-gradient(to right, #818cf8, #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.search-container {
+.search-wrapper {
     position: relative;
-    flex: 1;
-    max-width: 400px;
 }
 
 #citySearch {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 0.75rem 1.25rem;
-    color: white;
-    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 250px;
+    font-size: 0.9rem;
     outline: none;
-    transition: var(--transition-smooth);
 }
 
 #citySearch:focus {
-    border-color: var(--accent-primary);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
 .search-results {
     position: absolute;
-    top: calc(100% + 8px);
+    top: 100%;
     left: 0;
     width: 100%;
-    background: #1e293b;
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    z-index: 10;
-    max-height: 250px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    z-index: 100;
+    max-height: 200px;
     overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: none;
 }
 
 .search-item {
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    transition: var(--transition-smooth);
+    font-size: 0.85rem;
 }
 
 .search-item:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-main);
 }
 
-.hero-clock {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-.clock-face h2 {
-    font-size: 6rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    letter-spacing: -2px;
-}
-
-.clock-face p#currentDate {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.25rem;
-}
-
-.clock-face p#currentZone {
-    font-size: 0.9rem;
-    color: var(--accent-primary);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.converter-section {
-    margin-bottom: 4rem;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 2rem;
-    border-radius: 20px;
-    border: 1px solid var(--glass-border);
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.timeline-controls button {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    color: white;
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border-color);
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 0.85rem;
-    transition: var(--transition-smooth);
+    color: var(--text-muted);
 }
 
-.timeline-controls button:hover {
-    background: rgba(255, 255, 255, 0.1);
+.btn-secondary:hover {
+    background: var(--bg-main);
+    color: var(--text-main);
 }
 
-.slider-wrapper {
+/* Timeline */
+.timeline-container {
+    padding: 1rem 0;
     position: relative;
-    padding-bottom: 2rem;
+    overflow-x: auto;
 }
 
-#timeSlider {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-#timeSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: var(--accent-primary);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 20px rgba(129, 140, 248, 0.4);
-    transition: var(--transition-smooth);
-}
-
-.timeline-labels {
+.timeline-header-row {
     display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    color: var(--text-secondary);
-    font-size: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.clocks-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.clock-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 1.5rem;
+.city-info-cell {
+    width: 250px;
+    min-width: 250px;
+    padding: 1rem;
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    position: relative;
-    transition: var(--transition-smooth);
+    align-items: center;
+    gap: 0.75rem;
+    border-right: 1px solid var(--border-color);
+    background: #fff;
+    position: sticky;
+    left: 0;
+    z-index: 2;
 }
 
-.clock-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+.hours-grid,
+.hours-grid-header {
+    display: flex;
+    flex: 1;
 }
 
-.remove-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 1.5rem;
+.hour-cell {
+    flex: 1;
+    min-width: 40px;
+    height: 40px;
+    border-right: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
     cursor: pointer;
-    opacity: 0;
-    transition: var(--transition-smooth);
+    user-select: none;
+    transition: background 0.2s;
 }
 
-.clock-card:hover .remove-btn {
-    opacity: 1;
+.hour-cell.night {
+    background: var(--hour-night);
 }
 
-.remove-btn:hover {
-    color: #ef4444;
+.hour-cell.active-highlight {
+    background: var(--highlight-blue) !important;
+}
+
+.hour-cell.selected {
+    border: 2px solid var(--primary-blue);
+    z-index: 1;
+}
+
+.city-row {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s;
+}
+
+.city-row:hover {
+    background: #fdfdfd;
+}
+
+.city-details {
+    flex: 1;
 }
 
 .city-name {
-    font-size: 1.25rem;
+    font-size: 0.95rem;
     font-weight: 600;
 }
 
-.country-name {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+.city-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
-.card-time {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-top: auto;
-}
-
-.city-time {
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.city-offset {
-    font-size: 0.8rem;
-    color: var(--accent-primary);
-    font-weight: 600;
-}
-
-footer {
-    margin-top: 4rem;
-    text-align: center;
-    color: var(--text-secondary);
+.current-city-time {
     font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+
+.remove-btn:hover {
+    color: #f87171;
+}
+
+/* Vertical indicator */
+.vertical-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 42px;
+    /* Matches hour cell width roughly */
+    background: rgba(37, 99, 235, 0.05);
+    border-left: 2px solid var(--primary-blue);
+    border-right: 2px solid var(--primary-blue);
+    pointer-events: none;
+    display: none;
+    z-index: 5;
+}
+
+.app-footer {
+    padding: 1.5rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border-color);
 }
 
 @media (max-width: 768px) {
-    .glass-container {
-        padding: 1.5rem;
-    }
-    
-    .clock-face h2 {
-        font-size: 4rem;
-    }
-    
-    header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .search-container {
-        max-width: 100%;
+    .city-info-cell {
+        width: 150px;
+        min-width: 150px;
     }
 }
