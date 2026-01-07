@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeBuddy | Your Aesthetic World Clock</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A beautiful and modern aesthetic world clock and timezone converter.">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="glass-container">
+        <header>
+            <div class="logo">
+                <span class="icon">🕒</span>
+                <h1>TimeBuddy</h1>
+            </div>
+            <div class="search-container">
+                <input type="text" id="citySearch" placeholder="Add a city..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero-clock">
+                <div class="clock-face">
+                    <h2 id="currentTime">00:00:00</h2>
+                    <p id="currentDate">Monday, January 1, 2024</p>
+                    <p id="currentZone">Local Time</p>
+                </div>
+            </section>
+
+            <section class="converter-section">
+                <div class="section-header">
+                    <h3>Timeline</h3>
+                    <div class="timeline-controls">
+                        <button id="resetSlider">Reset to Now</button>
+                    </div>
+                </div>
+                <div class="slider-wrapper">
+                    <input type="range" id="timeSlider" min="0" max="1440" value="0" step="15">
+                    <div class="timeline-labels">
+                        <span>12 AM</span>
+                        <span>6 AM</span>
+                        <span>12 PM</span>
+                        <span>6 PM</span>
+                        <span>11 PM</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="worldClocks" class="clocks-grid">
+                <!-- Clocks will be injected here -->
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 TimeBuddy - Aesthetic Time Management</p>
+        </footer>
+    </div>
+
+    <template id="clockCardTemplate">
+        <div class="clock-card">
+            <button class="remove-btn">&times;</button>
+            <div class="card-info">
+                <h4 class="city-name">London</h4>
+                <p class="country-name">United Kingdom</p>
+            </div>
+            <div class="card-time">
+                <span class="city-time">00:00</span>
+                <span class="city-offset">GMT +0</span>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
