@@ -223,16 +223,41 @@ body {
     color: #f87171;
 }
 
+/* Custom Scrollbar for a cleaner look */
+.timeline-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
 /* Vertical indicator */
 .vertical-indicator {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 42px;
-    /* Matches hour cell width roughly */
+    width: 2px;
+    background: var(--primary-blue);
+    pointer-events: none;
+    display: none;
+    z-index: 10;
+}
+
+.vertical-highlight-box {
+    position: absolute;
+    top: 0;
+    bottom: 0;
     background: rgba(37, 99, 235, 0.05);
-    border-left: 2px solid var(--primary-blue);
-    border-right: 2px solid var(--primary-blue);
     pointer-events: none;
     display: none;
     z-index: 5;

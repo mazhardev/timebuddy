@@ -93,9 +93,11 @@ const renderRows = () => {
                 cell.classList.add('active-highlight');
             }
 
-            cell.addEventListener('mouseenter', () => highlightHour(i));
+            cell.addEventListener('mouseenter', () => highlightHour(cell));
             grid.appendChild(cell);
         }
+
+        grid.addEventListener('mouseleave', () => highlightHour(null));
 
         clone.querySelector('.remove-btn').addEventListener('click', () => {
             addedCities.splice(cityIndex, 1);
@@ -107,20 +109,30 @@ const renderRows = () => {
     });
 };
 
-const highlightHour = (hourIndex) => {
-    const allRows = document.querySelectorAll('.city-row');
-    allRows.forEach(row => {
-        const cells = row.querySelectorAll('.hour-cell');
-        cells.forEach((cell, idx) => {
-            if (idx === hourIndex) {
-                cell.classList.add('active-highlight');
-            } else {
-                // Keep the "current" time highlight for the city if it's not the hovered one
-                // Actually WTB usually moves the highlight bar. Let's simplify.
-                cell.classList.remove('active-highlight');
-            }
-        });
-    });
+const verticalIndicator = document.getElementById('verticalIndicator');
+const verticalHighlightBox = document.getElementById('verticalHighlightBox');
+
+const highlightHour = (cell) => {
+    if (!cell) {
+        verticalIndicator.style.display = 'none';
+        verticalHighlightBox.style.display = 'none';
+        return;
+    }
+
+    const rect = cell.getBoundingClientRect();
+    const containerRect = document.querySelector('.timeline-container').getBoundingClientRect();
+    const scrollLeft = document.querySelector('.timeline-container').scrollLeft;
+
+    // Position indicator relative to the grid container
+    const leftPos = cell.offsetLeft;
+    const width = cell.offsetWidth;
+
+    verticalIndicator.style.left = `${leftPos}px`;
+    verticalIndicator.style.display = 'block';
+
+    verticalHighlightBox.style.left = `${leftPos}px`;
+    verticalHighlightBox.style.width = `${width}px`;
+    verticalHighlightBox.style.display = 'block';
 };
 
 // Search logic
