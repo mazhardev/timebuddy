@@ -93,11 +93,9 @@ const renderRows = () => {
                 cell.classList.add('active-highlight');
             }
 
-            cell.addEventListener('mouseenter', () => highlightHour(cell));
+            cell.addEventListener('mouseenter', () => highlightHour(i));
             grid.appendChild(cell);
         }
-
-        grid.addEventListener('mouseleave', () => highlightHour(null));
 
         clone.querySelector('.remove-btn').addEventListener('click', () => {
             addedCities.splice(cityIndex, 1);
