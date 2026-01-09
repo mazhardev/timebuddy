@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Plant {
+  id        String   @id @default(uuid())
+  name      String
+  lines     Line[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Line {
+  id          String       @id @default(uuid())
+  name        String
+  plant       Plant        @relation(fields: [plantId], references: [id])
+  plantId     String
+  lossTree    String?      // JSON configuration
+  events      ShiftEvent[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Product {
+  id          String       @id @default(uuid())
+  sku         String       @unique
+  name        String
+  idealCycleTime Float?    // Seconds per unit for performance calculation
+  events      ShiftEvent[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model ShiftEvent {
+  id          String   @id @default(uuid())
+  line        Line     @relation(fields: [lineId], references: [id])
+  lineId      String
+  product     Product? @relation(fields: [productId], references: [id])
+  productId   String?
+  timestamp   DateTime
+  type        String   // RUN, STOP, CHANGEOVER, SCRAP
+  duration    Float?   // Duration in minutes for STOPS/CHANGEOVERS
+  quantity    Int?     // Units produced or scrapped
+  reason      String?  // Raw reason from machine logs
+  category1   String?  // High level loss category (e.g., Availability)
+  category2   String?  // Mid level (e.g., Unplanned)
+  category3   String?  // Specific (e.g., Mechanical)
+  createdAt   DateTime @default(now())
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
